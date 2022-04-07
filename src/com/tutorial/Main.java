@@ -7,8 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
         in = new Scanner(System.in);
-        boolean redo = false;
-        while(!redo){
+            int opsi = menu();
             switch (opsi){
                 case 1:
                     mahasiswa();
@@ -16,9 +15,6 @@ public class Main {
                 case 2:
                     pelajar();
                     break;
-                default:
-                    redo = true;
-            }
         }
 
     }
@@ -72,11 +68,11 @@ public class Main {
         System.out.println("--- Form Penilaian ---");
         System.out.println("Keterangan: Nilai yang valid berada di antara 0 - 100\n");
 
-        System.out.println("Nilai Struktur dan Konten Jurnal\n");
+        System.out.println("Nilai Struktur dan Konten Jurnal: ");
         mahasiswa.setNilaiJurnal(inputValidNumber());
-        System.out.println("Nilai Relevansi Data\n");
+        System.out.println("Nilai Relevansi Data: ");
         mahasiswa.setNilaiRelevansi(inputValidNumber());
-        System.out.println("Kemampuang Problem Solving\n");
+        System.out.println("Kemampuang Problem Solving: ");
         mahasiswa.setNilaiProblemSolving(inputValidNumber());
     }
 
@@ -95,19 +91,24 @@ public class Main {
             Pelajar pelajar = new Pelajar(nama, umur);
             formNilaiPelajar(pelajar);
 
-            switch (subMenu()) {
-                case 1:
-                    if (umur >= 16 && umur <= 24 && pelajar.getTotal() >= 87.5)
-                        pelajar.lolos();
-                    else
-                        pelajar.tidakLolos();
-                    break;
-                case 2:
-                    formNilaiPelajar(pelajar);
-                    break;
-                case 3:
-                    redo = false;
-                    break;
+            boolean loop = true;
+            while (loop) {
+                switch (subMenu()) {
+                    case 1:
+                        if (umur >= 16 && umur <= 24 && pelajar.getTotal() >= 87.5)
+                            pelajar.lolos();
+                        else
+                            pelajar.tidakLolos();
+                        break;
+                    case 2:
+                        formNilaiPelajar(pelajar);
+                        break;
+                    case 3:
+                        loop = false;
+                        redo = false;
+                        System.out.println("Terima Kasih!");
+                        break;
+                }
             }
         }
     }
@@ -115,11 +116,11 @@ public class Main {
         System.out.println("--- Form Penilaian ---");
         System.out.println("Keterangan: Nilai yang valid berada di antara 0 - 100\n");
 
-        System.out.println("Nilai Struktur dan Konten Esai\n");
+        System.out.println("Nilai Struktur dan Konten Esai: ");
         pelajar.setNilaiEsai(inputValidNumber());
-        System.out.println("Nilai Teknik Visualisasi\n");
+        System.out.println("Nilai Teknik Visualisasi: ");
         pelajar.setNilaiVisualisasi(inputValidNumber());
-        System.out.println("Nilai Design Thinking\n");
+        System.out.println("Nilai Design Thinking: ");
         pelajar.setNilaiDesignThinking(inputValidNumber());
     }
     public static double inputValidNumber(){
